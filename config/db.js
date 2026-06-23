@@ -2,6 +2,15 @@ const { Sequelize } = require('sequelize');
 const path = require('path');
 const fs = require('fs');
 
+// Force Vercel's bundler to include the PostgreSQL driver ('pg') and helper ('pg-hstore')
+// since Sequelize loads dialects dynamically, which Vercel's static file tracing (nft) misses.
+try {
+  require('pg');
+  require('pg-hstore');
+} catch (e) {
+  // Ignore local resolution errors if they occur
+}
+
 let sequelize;
 
 if (process.env.DATABASE_URL) {
