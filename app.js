@@ -13,6 +13,9 @@ dotenv.config();
 // Initialize Express App
 const app = express();
 
+// Trust proxy (essential for secure session cookies to work behind Vercel/reverse proxies)
+app.set('trust proxy', 1);
+
 // Set up Template Engine (EJS)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
